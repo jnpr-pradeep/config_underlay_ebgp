@@ -1,0 +1,29 @@
+- name: "convert yaml to json."
+  hosts: "localhost"
+  gather_facts: no
+  tasks:
+    - import_role:
+        name: Juniper.junos 
+    - set_fact:
+         links_yaml: "{{ lookup('file', 'links.yaml') }}"
+    - set_fact:
+        json_output: "{{ links_yaml  | from_yaml | to_json }}"
+
+    - set_fact:
+        device_config_map: "{{ json_output | from_json | parse_links }}"
+
+    - name: Commit the configuration on the device
+      juniper_junos_config:
+        load: "set"
+        format: "set"
+        lines: "{{item.value}}"
+        ignore_warning: "True"
+        commit: "True"
+        provider:
+          host: "{{item.key}}"
+          username: "root"
+          password: "C0ntrail123"
+          port: 22
+          timeout: 30
+      register: execute_command_resp
+      with_dict: "{{device_config_map}}"

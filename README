@@ -1,0 +1,9 @@
+virtualenv .venv
+
+source .venv/bin/activate
+
+pip install -r requirements.txt
+
+ansible-playbook config_ebp.yml
+
+deactivate

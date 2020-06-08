@@ -1,0 +1,14 @@
+asns:
+    - device: 1.1.1.1
+      asn: 60000
+    - device: 2.2.2.2
+      asn: 60001
+links:
+    - from:
+        device: 1.1.1.1
+        ifc_name: ge-1/0/4
+        ifc_ip: 1.31.1.5/30
+      to:
+        device: 2.2.2.2
+        ifc_name: ge-0/0/46
+        ifc_ip: 1.31.1.6/30
