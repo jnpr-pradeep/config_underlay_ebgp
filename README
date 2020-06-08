@@ -4,6 +4,6 @@ source .venv/bin/activate
 
 pip install -r requirements.txt
 
-ansible-playbook config_ebp.yml
+ansible-playbook config_ebgp.yml
 
 deactivate
